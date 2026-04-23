@@ -25,9 +25,9 @@ router.get("/merged-services", async (req, res) => {
 
     const getImageTypeFromService = (name) => {
       const normalized = name.toLowerCase().replace(/\s/g, "");
-      if (normalized.includes("sécheuses")) return "dryer";
-      if (normalized.includes("Climatiseurs")) return "ac";
-      if (normalized.includes("cheminées")) return "chimney";
+      if (normalized.includes("sécheuse")) return "dryer";
+      if (normalized.includes("Climatiseur")) return "ac";
+      if (normalized.includes("cheminée")) return "chimney";
       if (normalized.includes("ventilation")) return "airduct";
       return null;
     };
