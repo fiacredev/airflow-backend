@@ -26,7 +26,7 @@ router.get("/merged-services", async (req, res) => {
     const getImageTypeFromService = (name) => {
       const normalized = name.toLowerCase().replace(/\s/g, "");
       if (normalized.includes("sécheuse")) return "dryer";
-      if (normalized.includes("climatiseur")) return "ac";
+      if (normalized.includes("Climatiseur")) return "ac";
       if (normalized.includes("cheminée")) return "chimney";
       if (normalized.includes("ventilation")) return "airduct";
       return null;
@@ -57,13 +57,17 @@ router.put("/:id", async (req, res) => {
   try {
     const updatedService = await Service.findByIdAndUpdate(
       req.params.id,
-      req.body,
-      { new: true } // return updated data
+      {
+        ...req.body,
+        price: String(req.body.price),
+      },
+      { new: true }
     );
 
     res.json(updatedService);
   } catch (error) {
-    res.status(500).json({ error: "Failed to update service" });
+    console.error("UPDATE ERROR:", error); 
+    res.status(500).json({ error: error.message });
   }
 });
 
